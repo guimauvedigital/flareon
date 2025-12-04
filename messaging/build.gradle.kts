@@ -12,8 +12,8 @@ mavenPublishing {
     publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
     pom {
-        name.set("core")
-        description.set("Core of flareon, managing auth.")
+        name.set("messaging")
+        description.set("Firebase Cloud Messaging module of Flareon Firebase Admin SDK")
         url.set(project.ext.get("url")?.toString())
         licenses {
             license {
@@ -79,48 +79,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(libs.kotlinx.serialization.json)
-                api(libs.kotlinx.coroutines.core)
-                api(libs.kotlinx.datetime)
-                api(libs.ktor.client.core)
-                api(libs.ktor.client.content.negotiation)
-                api(libs.ktor.serialization.json)
-                api(libs.ktor.client.logging)
-                api(libs.cryptography.core)
+                api(project(":core"))
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.json)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-            }
-        }
-        val jvmMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.cio)
-                implementation(libs.cryptography.provider.jdk)
-            }
-        }
-        val appleMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.darwin)
-                implementation(libs.cryptography.provider.apple)
-            }
-        }
-        val linuxMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.curl)
-                implementation(libs.cryptography.provider.openssl3.prebuilt)
-            }
-        }
-        val mingwMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.winhttp)
-                implementation(libs.cryptography.provider.openssl3.prebuilt)
-            }
-        }
-        val jsMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.js)
             }
         }
     }

@@ -11,3 +11,4 @@ plugins {
 
 rootProject.name = "flareon"
 include(":core")
+include(":messaging")
